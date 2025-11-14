@@ -7,10 +7,13 @@ import com.rickenbazolo.toon.converter.json.JsonToToonConverter;
 import com.rickenbazolo.toon.converter.json.JsonToToonOptions;
 import com.rickenbazolo.toon.converter.json.ToonToJsonConverter;
 import com.rickenbazolo.toon.converter.json.ToonToJsonOptions;
+import com.rickenbazolo.toon.converter.xml.ToonToXmlConverter;
+import com.rickenbazolo.toon.converter.xml.ToonToXmlOptions;
 import com.rickenbazolo.toon.converter.xml.XmlToToonConverter;
 import com.rickenbazolo.toon.converter.xml.XmlToToonOptions;
 import com.rickenbazolo.toon.core.ToonDecoder;
 import com.rickenbazolo.toon.core.ToonEncoder;
+import com.rickenbazolo.toon.exception.XmlException;
 import com.rickenbazolo.toon.exception.XmlParseException;
 
 import java.io.File;
@@ -50,6 +53,7 @@ import java.nio.file.Files;
  *
  * // XML conversion
  * String toonFromXml = Toon.fromXml(xmlString);
+ * String xmlFromToon = Toon.toXml(toonString);
  * }</pre>
  *
  * @since 0.1.0
@@ -346,8 +350,8 @@ public class Toon {
      * @see #fromXml(String)
      * @since 0.2.0
      */
-    public static String fromXmlFile(File xmlFile) throws IOException, XmlParseException {
-        return fromXmlFile(xmlFile, XmlToToonOptions.DEFAULT);
+    public static String fromXml(File xmlFile) throws IOException, XmlParseException {
+        return fromXml(xmlFile, XmlToToonOptions.DEFAULT);
     }
 
     /**
@@ -365,8 +369,8 @@ public class Toon {
      * @see #fromXml(String, XmlToToonOptions)
      * @since 0.2.0
      */
-    public static String fromXmlFile(File xmlFile, XmlToToonOptions xmlOptions) throws IOException, XmlParseException {
-        String xmlString = Files.readString(xmlFile.toPath());
+    public static String fromXml(File xmlFile, XmlToToonOptions xmlOptions) throws IOException, XmlParseException {
+        var xmlString = Files.readString(xmlFile.toPath());
         return fromXml(xmlString, xmlOptions);
     }
 
@@ -384,8 +388,8 @@ public class Toon {
      * @see #fromXml(String)
      * @since 0.2.0
      */
-    public static String fromXmlStream(InputStream xmlStream) throws IOException, XmlParseException {
-        return fromXmlStream(xmlStream, XmlToToonOptions.DEFAULT);
+    public static String fromXml(InputStream xmlStream) throws IOException, XmlParseException {
+        return fromXml(xmlStream, XmlToToonOptions.DEFAULT);
     }
 
     /**
@@ -403,9 +407,49 @@ public class Toon {
      * @see #fromXml(String, XmlToToonOptions)
      * @since 0.2.0
      */
-    public static String fromXmlStream(InputStream xmlStream, XmlToToonOptions xmlOptions) throws IOException, XmlParseException {
-        String xmlString = new String(xmlStream.readAllBytes());
+    public static String fromXml(InputStream xmlStream, XmlToToonOptions xmlOptions) throws IOException, XmlParseException {
+        var xmlString = new String(xmlStream.readAllBytes());
         return fromXml(xmlString, xmlOptions);
+    }
+
+    /**
+     * Converts a TOON string to XML format using default options.
+     *
+     * <p>Uses default configuration with "root" as root element name,
+     * "@" as attribute prefix, "#text" as text node key, and pretty-printing enabled.</p>
+     *
+     * @param toonString the TOON string to convert (must not be null)
+     * @return the XML representation of the TOON data
+     * @throws XmlException if conversion fails
+     * @throws IllegalArgumentException if toonString is null
+     *
+     * @see #toXml(String, ToonToXmlOptions)
+     * @see ToonToXmlConverter
+     * @since 0.2.0
+     */
+    public static String toXml(String toonString) throws XmlException {
+        return toXml(toonString, ToonToXmlOptions.DEFAULT);
+    }
+
+    /**
+     * Converts a TOON string to XML format using custom options.
+     *
+     * <p>Uses the ToonToXmlConverter with the specified options for attribute handling,
+     * text content handling, root element naming, and formatting.</p>
+     *
+     * @param toonString the TOON string to convert (must not be null)
+     * @param xmlOptions the XML generation options to use (must not be null)
+     * @return the XML representation of the TOON data
+     * @throws XmlException if conversion fails
+     * @throws IllegalArgumentException if any parameter is null
+     *
+     * @see ToonToXmlConverter
+     * @see ToonToXmlOptions
+     * @since 0.2.0
+     */
+    public static String toXml(String toonString, ToonToXmlOptions xmlOptions) throws XmlException {
+        var converter = new ToonToXmlConverter(xmlOptions);
+        return converter.convert(toonString);
     }
 
     /**

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user id="1" status="active">
+        <name>Alice Johnson</name>
+        <email>alice.johnson@example.com</email>
+        <age>28</age>
+        <department>Engineering</department>
+        <address>
+            <street>123 Main St</street>
+            <city>San Francisco</city>
+            <state>CA</state>
+            <zip>94102</zip>
+        </address>
+    </user>
+    <user id="2" status="active">
+        <name>Bob Smith</name>
+        <email>bob.smith@example.com</email>
+        <age>35</age>
+        <department>Sales</department>
+        <address>
+            <street>456 Oak Ave</street>
+            <city>New York</city>
+            <state>NY</state>
+            <zip>10001</zip>
+        </address>
+    </user>
+    <user id="3" status="inactive">
+        <name>Carol Williams</name>
+        <email>carol.williams@example.com</email>
+        <age>42</age>
+        <department>Marketing</department>
+        <address>
+            <street>789 Pine Rd</street>
+            <city>Austin</city>
+            <state>TX</state>
+            <zip>73301</zip>
+        </address>
+    </user>
+</users>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog version="2.0" lang="en">
+    <metadata>
+        <title>Book Catalog</title>
+        <publisher>Tech Books Inc.</publisher>
+        <lastUpdated>2025-11-12</lastUpdated>
+    </metadata>
+    <books>
+        <book id="ISBN-001" category="fiction">
+            <title>The Great Gatsby</title>
+            <author>F. Scott Fitzgerald</author>
+            <year>1925</year>
+            <price currency="USD">10.99</price>
+            <inStock>true</inStock>
+        </book>
+        <book id="ISBN-002" category="dystopian">
+            <title>1984</title>
+            <author>George Orwell</author>
+            <year>1949</year>
+            <price currency="USD">12.99</price>
+            <inStock>true</inStock>
+        </book>
+        <book id="ISBN-003" category="science">
+            <title>A Brief History of Time</title>
+            <author>Stephen Hawking</author>
+            <year>1988</year>
+            <price currency="USD">18.99</price>
+            <inStock>false</inStock>
+        </book>
+    </books>
+</catalog>
