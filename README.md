@@ -4,6 +4,13 @@
 [![Maven](https://img.shields.io/badge/Maven-3.8%2B-red.svg)](https://maven.apache.org/)
 [![TOON Spec](https://img.shields.io/badge/TOON%20Spec-v1.4-orange.svg)](https://github.com/toon-format/spec/releases/tag/v1.4.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=bugs)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
+
 [![serialization](https://img.shields.io/badge/tag-serialization-green)](https://github.com/topics/serialization)
 [![tokenization](https://img.shields.io/badge/tag-tokenization-green)](https://github.com/topics/tokenization)
 [![data-format](https://img.shields.io/badge/tag-data--format-green)](https://github.com/topics/data-format)
@@ -12,37 +19,6 @@
 A Java implementation of **TOON** (Token-Oriented Object Notation), a compact serialization format optimized to reduce token usage when interacting with Large Language Models (LLMs).
 
 > **Origin**: This Java implementation is based on the TOON format specification defined at [toon-format-spec](https://github.com/toon-format/spec). This version fully respects the TOON specifications while focusing on providing a robust Java API for easy integration into existing projects.
-
-## 📚 Table of Contents
-
-- [ What is TOON?](#-what-is-toon)
-  - [Comparison Example](#comparison-example)
-- [ Installation](#-installation)
-  - [Maven](#maven)
-  - [Gradle](#gradle)
-- [ Quick Start](#-quick-start)
-  - [Basic Encoding](#basic-encoding)
-  - [Basic Decoding](#basic-decoding)
-  - [JSON Conversion](#json-conversion)
-- [ Array Formats](#-array-formats)
-  - [1. Tabular Arrays (Objects with identical keys)](#1-tabular-arrays-objects-with-identical-keys)
-  - [2. Primitive Arrays](#2-primitive-arrays)
-  - [3. List Arrays (Complex nested data)](#3-list-arrays-complex-nested-data)
-- [️ Configuration Options](#️-configuration-options)
-  - [Available Delimiters](#available-delimiters)
-- [ Token Savings Analysis](#-token-savings-analysis)
-- [️ Architecture](#️-architecture)
-  - [Core Classes](#core-classes)
-  - [Key Features](#key-features)
-- [ Advanced Usage](#-advanced-usage)
-  - [Custom Object Mapping](#custom-object-mapping)
-  - [Error Handling](#error-handling)
-  - [Working with Streams](#working-with-streams)
-- [ Testing](#-testing)
-- [ Requirements](#-requirements)
-- [ Contributing](#-contributing)
-  - [Development Guidelines](#development-guidelines)
-- [ License](#-license)
 
 ## 🎯 What is TOON?
 
@@ -74,7 +50,7 @@ users[2]{id,name,role}:
 ```xml
 <dependency>
     <groupId>com.rickenbazolo</groupId>
-    <artifactId>toon-java</artifactId>
+    <artifactId>toon4j</artifactId>
     <version>${version}</version>
 </dependency>
 ```
@@ -82,7 +58,7 @@ users[2]{id,name,role}:
 ### Gradle
 
 ```gradle
-implementation 'com.rickenbazolo:toon-java:$version'
+implementation 'com.rickenbazolo:toon4j:$version'
 ```
 
 ## 🚀 Quick Start
