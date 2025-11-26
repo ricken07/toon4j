@@ -7,6 +7,10 @@ import com.rickenbazolo.toon.converter.json.JsonToToonConverter;
 import com.rickenbazolo.toon.converter.json.JsonToToonOptions;
 import com.rickenbazolo.toon.converter.json.ToonToJsonConverter;
 import com.rickenbazolo.toon.converter.json.ToonToJsonOptions;
+import com.rickenbazolo.toon.converter.csv.CsvToToonConverter;
+import com.rickenbazolo.toon.converter.csv.CsvToToonOptions;
+import com.rickenbazolo.toon.converter.csv.ToonToCsvConverter;
+import com.rickenbazolo.toon.converter.csv.ToonToCsvOptions;
 import com.rickenbazolo.toon.converter.xml.ToonToXmlConverter;
 import com.rickenbazolo.toon.converter.xml.ToonToXmlOptions;
 import com.rickenbazolo.toon.converter.xml.XmlToToonConverter;
@@ -33,7 +37,8 @@ import java.nio.file.Files;
  *   <li>Encoding Java objects to TOON format</li>
  *   <li>Decoding TOON strings to Java objects</li>
  *   <li>Converting between JSON and TOON formats</li>
- *   <li>Converting XML to TOON format</li>
+ *   <li>Converting between XML and TOON formats</li>
+ *   <li>Converting between CSV and TOON formats</li>
  *   <li>Estimating token savings compared to JSON</li>
  * </ul>
  *
@@ -54,6 +59,10 @@ import java.nio.file.Files;
  * // XML conversion
  * String toonFromXml = Toon.fromXml(xmlString);
  * String xmlFromToon = Toon.toXml(toonString);
+ *
+ * // CSV conversion
+ * String toonFromCsv = Toon.fromCsv(csvString);
+ * String csvFromToon = Toon.toCsv(toonString);
  * }</pre>
  *
  * @since 0.1.0
@@ -449,6 +458,158 @@ public class Toon {
      */
     public static String toXml(String toonString, ToonToXmlOptions xmlOptions) throws XmlException {
         var converter = new ToonToXmlConverter(xmlOptions);
+        return converter.convert(toonString);
+    }
+
+    /**
+     * Converts a CSV string to TOON format using default options.
+     *
+     * <p>Uses default configuration with comma delimiter, automatic header detection,
+     * and type inference enabled.</p>
+     *
+     * @param csvString the CSV string to convert (must be valid CSV)
+     * @return the TOON representation of the CSV data
+     * @throws IOException if CSV parsing fails
+     * @throws IllegalArgumentException if csvString is null
+     *
+     * @see #fromCsv(String, CsvToToonOptions)
+     * @see CsvToToonConverter
+     * @since 0.3.0
+     */
+    public static String fromCsv(String csvString) throws IOException {
+        return fromCsv(csvString, CsvToToonOptions.DEFAULT);
+    }
+
+    /**
+     * Converts a CSV string to TOON format using custom options.
+     *
+     * <p>Uses the CsvToToonConverter with the specified options for CSV parsing,
+     * type inference, and header handling.</p>
+     *
+     * @param csvString the CSV string to convert (must be valid CSV)
+     * @param csvOptions the CSV parsing options to use (must not be null)
+     * @return the TOON representation of the CSV data
+     * @throws IOException if CSV parsing fails
+     * @throws IllegalArgumentException if any parameter is null
+     *
+     * @see CsvToToonConverter
+     * @see CsvToToonOptions
+     * @since 0.3.0
+     */
+    public static String fromCsv(String csvString, CsvToToonOptions csvOptions) throws IOException {
+        var converter = new CsvToToonConverter(csvOptions);
+        return converter.convert(csvString);
+    }
+
+    /**
+     * Converts a CSV file to TOON format using default options.
+     *
+     * <p>Reads the CSV file content and converts it to TOON format using default configuration.</p>
+     *
+     * @param csvFile the CSV file to parse (must exist and be readable)
+     * @return the TOON representation of the CSV data
+     * @throws IOException if file reading or CSV parsing fails
+     * @throws IllegalArgumentException if csvFile is null
+     *
+     * @see #fromCsv(String)
+     * @since 0.3.0
+     */
+    public static String fromCsv(File csvFile) throws IOException {
+        return fromCsv(csvFile, CsvToToonOptions.DEFAULT);
+    }
+
+    /**
+     * Converts a CSV file to TOON format using custom options.
+     *
+     * <p>Reads the CSV file content and converts it to TOON format using the specified options.</p>
+     *
+     * @param csvFile the CSV file to parse (must exist and be readable)
+     * @param csvOptions the CSV parsing options to use (must not be null)
+     * @return the TOON representation of the CSV data
+     * @throws IOException if file reading or CSV parsing fails
+     * @throws IllegalArgumentException if any parameter is null
+     *
+     * @see #fromCsv(String, CsvToToonOptions)
+     * @since 0.3.0
+     */
+    public static String fromCsv(File csvFile, CsvToToonOptions csvOptions) throws IOException {
+        var converter = new CsvToToonConverter(csvOptions);
+        return converter.convert(csvFile);
+    }
+
+    /**
+     * Converts a CSV input stream to TOON format using default options.
+     *
+     * <p>Reads the CSV content from the stream and converts it to TOON format.</p>
+     *
+     * @param csvStream the CSV input stream (must not be null)
+     * @return the TOON representation of the CSV data
+     * @throws IOException if stream reading or CSV parsing fails
+     * @throws IllegalArgumentException if csvStream is null
+     *
+     * @see #fromCsv(String)
+     * @since 0.3.0
+     */
+    public static String fromCsv(InputStream csvStream) throws IOException {
+        return fromCsv(csvStream, CsvToToonOptions.DEFAULT);
+    }
+
+    /**
+     * Converts a CSV input stream to TOON format using custom options.
+     *
+     * <p>Reads the CSV content from the stream and converts it to TOON format using the specified options.</p>
+     *
+     * @param csvStream the CSV input stream (must not be null)
+     * @param csvOptions the CSV parsing options to use (must not be null)
+     * @return the TOON representation of the CSV data
+     * @throws IOException if stream reading or CSV parsing fails
+     * @throws IllegalArgumentException if any parameter is null
+     *
+     * @see #fromCsv(String, CsvToToonOptions)
+     * @since 0.3.0
+     */
+    public static String fromCsv(InputStream csvStream, CsvToToonOptions csvOptions) throws IOException {
+        var converter = new CsvToToonConverter(csvOptions);
+        return converter.convert(csvStream);
+    }
+
+    /**
+     * Converts a TOON string to CSV format using default options.
+     *
+     * <p>Uses default configuration with comma delimiter, header row included,
+     * and automatic array detection.</p>
+     *
+     * @param toonString the TOON string to convert (must not be null)
+     * @return the CSV representation of the TOON data
+     * @throws IOException if conversion fails
+     * @throws IllegalArgumentException if toonString is null
+     *
+     * @see #toCsv(String, ToonToCsvOptions)
+     * @see ToonToCsvConverter
+     * @since 0.3.0
+     */
+    public static String toCsv(String toonString) throws IOException {
+        return toCsv(toonString, ToonToCsvOptions.DEFAULT);
+    }
+
+    /**
+     * Converts a TOON string to CSV format using custom options.
+     *
+     * <p>Uses the ToonToCsvConverter with the specified options for array extraction,
+     * nested data handling, and CSV formatting.</p>
+     *
+     * @param toonString the TOON string to convert (must not be null)
+     * @param csvOptions the CSV generation options to use (must not be null)
+     * @return the CSV representation of the TOON data
+     * @throws IOException if conversion fails
+     * @throws IllegalArgumentException if any parameter is null
+     *
+     * @see ToonToCsvConverter
+     * @see ToonToCsvOptions
+     * @since 0.3.0
+     */
+    public static String toCsv(String toonString, ToonToCsvOptions csvOptions) throws IOException {
+        var converter = new ToonToCsvConverter(csvOptions);
         return converter.convert(toonString);
     }
 

@@ -1,0 +1,7 @@
+employee_id,name,email,department,hire_date,salary,status
+E001,Alice Smith,alice.smith@company.com,Engineering,2020-03-15,95000,active
+E002,Bob Jones,bob.jones@company.com,Sales,2019-07-22,75000,active
+E003,Carol White,carol.white@company.com,Marketing,2021-01-10,68000,active
+E004,David Brown,david.brown@company.com,Engineering,2018-11-05,105000,active
+E005,Eve Davis,eve.davis@company.com,HR,2022-05-20,62000,active
+E006,Frank Miller,frank.miller@company.com,Sales,2020-09-12,78000,on_leave

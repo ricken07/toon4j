@@ -1,0 +1,6 @@
+id,name,description,tags
+1,Product A,"Description with, commas and ""quotes""","tag1,tag2,tag3"
+2,Product B,Simple description,single_tag
+3,Product C,"Multi-line
+description here",tag_with_underscore
+4,Product D,"Contains semicolon; and pipe | chars","complex,tags"

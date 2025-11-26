@@ -1,0 +1,9 @@
+transaction_id,customer_id,amount,payment_method,status,timestamp
+TXN001,C1001,149.99,credit_card,completed,2025-11-25T10:30:00
+TXN002,C1002,299.50,paypal,completed,2025-11-25T10:35:12
+TXN003,C1003,89.99,debit_card,pending,2025-11-25T10:40:05
+TXN004,C1001,450.00,bank_transfer,completed,2025-11-25T10:45:30
+TXN005,C1004,25.99,credit_card,failed,2025-11-25T10:50:15
+TXN006,C1002,199.99,credit_card,completed,2025-11-25T10:55:00
+TXN007,C1005,750.00,paypal,pending,2025-11-25T11:00:00
+TXN008,C1003,35.50,debit_card,completed,2025-11-25T11:05:30

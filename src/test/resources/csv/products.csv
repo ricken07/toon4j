@@ -1,0 +1,8 @@
+product_id,product_name,category,price,in_stock
+P001,Laptop 15 inch,Electronics,999.99,true
+P002,Wireless Mouse,Electronics,24.99,true
+P003,USB-C Cable,Accessories,12.99,false
+P004,4K Monitor 27 inch,Electronics,449.99,true
+P005,Mechanical Keyboard,Accessories,89.99,true
+P006,Webcam HD,Electronics,59.99,false
+P007,USB Hub 7 Port,Accessories,29.99,true
