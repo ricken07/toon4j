@@ -3,6 +3,8 @@ package com.rickenbazolo.toon.converter.xml;
 import com.rickenbazolo.toon.Toon;
 import com.rickenbazolo.toon.exception.XmlParseException;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -17,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests Toon.fromXml(File) and Toon.fromXml(InputStream) using sample XML files.
  */
 class XmlFileInputTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(XmlFileInputTest.class);
 
     /**
      * Gets a file from test resources
@@ -38,20 +42,20 @@ class XmlFileInputTest {
 
     @Test
     void testFromXmlFile_SampleUsers() throws Exception {
-        System.out.println("\n=== Test fromXml(File): sample-users.xml ===");
+        logger.debug("\n=== Test fromXml(File): sample-users.xml ===");
 
         // Load XML file from resources
         File xmlFile = getResourceFile("xml/sample-users.xml");
         assertTrue(xmlFile.exists(), "XML file should exist");
 
-        System.out.println("\n1. Loading XML file: " + xmlFile.getPath());
-        System.out.println("   File size: " + xmlFile.length() + " bytes");
+        logger.debug("\n1. Loading XML file: {}", xmlFile.getPath());
+        logger.debug("   File size: {} bytes", xmlFile.length());
 
         // Convert XML file to TOON
         String toon = Toon.fromXml(xmlFile);
 
-        System.out.println("\n2. Converted to TOON:");
-        System.out.println(toon);
+        logger.debug("\n2. Converted to TOON:");
+        logger.debug(toon);
 
         // Verify content
         assertNotNull(toon);
@@ -70,24 +74,24 @@ class XmlFileInputTest {
         long xmlSize = xmlFile.length();
         long toonSize = toon.length();
         double reduction = ((xmlSize - toonSize) * 100.0) / xmlSize;
-        System.out.printf("\n3. Size comparison: %d bytes (XML) → %d bytes (TOON) = %.1f%% reduction\n",
-                         xmlSize, toonSize, reduction);
+        logger.debug("\n3. Size comparison: {} bytes (XML) → {} bytes (TOON) = {} reduction",
+                         xmlSize, toonSize, String.format("%.1f%%", reduction));
     }
 
     @Test
     void testFromXmlFile_SampleCatalog() throws Exception {
-        System.out.println("\n=== Test fromXmlFile: sample-catalog.xml ===");
+        logger.debug("\n=== Test fromXmlFile: sample-catalog.xml ===");
 
         File xmlFile = getResourceFile("xml/sample-catalog.xml");
         assertTrue(xmlFile.exists(), "XML file should exist");
 
-        System.out.println("\n1. Loading XML file: " + xmlFile.getPath());
+        logger.debug("\n1. Loading XML file: {}", xmlFile.getPath());
 
         // Convert with default options
         String toon = Toon.fromXml(xmlFile);
 
-        System.out.println("\n2. Converted to TOON (default options):");
-        System.out.println(toon);
+        logger.debug("\n2. Converted to TOON (default options):");
+        logger.debug(toon);
 
         // Verify content
         assertNotNull(toon);
@@ -103,7 +107,7 @@ class XmlFileInputTest {
 
     @Test
     void testFromXmlFile_WithCustomOptions() throws Exception {
-        System.out.println("\n=== Test fromXmlFile with custom options ===");
+        logger.debug("\n=== Test fromXmlFile with custom options ===");
 
         File xmlFile = getResourceFile("xml/sample-catalog.xml");
 
@@ -115,8 +119,8 @@ class XmlFileInputTest {
 
         String toon = Toon.fromXml(xmlFile, options);
 
-        System.out.println("\n1. Converted with custom options (no attributes):");
-        System.out.println(toon);
+        logger.debug("\n1. Converted with custom options (no attributes):");
+        logger.debug(toon);
 
         // Verify attributes are not included
         assertNotNull(toon);
@@ -128,18 +132,18 @@ class XmlFileInputTest {
 
     @Test
     void testFromXmlStream_SampleUsers() throws Exception {
-        System.out.println("\n=== Test fromXmlStream: sample-users.xml ===");
+        logger.debug("\n=== Test fromXmlStream: sample-users.xml ===");
 
         // Load XML from InputStream
         try (InputStream xmlStream = getResourceStream("xml/sample-users.xml")) {
             assertNotNull(xmlStream);
-            System.out.println("\n1. Loading XML from InputStream");
+            logger.debug("\n1. Loading XML from InputStream");
 
             // Convert XML stream to TOON
             String toon = Toon.fromXml(xmlStream);
 
-            System.out.println("\n2. Converted to TOON:");
-            System.out.println(toon);
+            logger.debug("\n2. Converted to TOON:");
+            logger.debug(toon);
 
             // Verify content
             assertNotNull(toon);
@@ -152,15 +156,15 @@ class XmlFileInputTest {
 
     @Test
     void testFromXmlStream_SampleCatalog() throws Exception {
-        System.out.println("\n=== Test fromXmlStream: sample-catalog.xml ===");
+        logger.debug("\n=== Test fromXmlStream: sample-catalog.xml ===");
 
         try (InputStream xmlStream = getResourceStream("xml/sample-catalog.xml")) {
             assertNotNull(xmlStream);
 
             String toon = Toon.fromXml(xmlStream);
 
-            System.out.println("\n1. Converted to TOON:");
-            System.out.println(toon);
+            logger.debug("\n1. Converted to TOON:");
+            logger.debug(toon);
 
             // Verify content
             assertNotNull(toon);
@@ -172,7 +176,7 @@ class XmlFileInputTest {
 
     @Test
     void testFromXmlStream_WithCustomOptions() throws Exception {
-        System.out.println("\n=== Test fromXmlStream with custom options ===");
+        logger.debug("\n=== Test fromXmlStream with custom options ===");
 
         try (InputStream xmlStream = getResourceStream("xml/sample-users.xml")) {
             // Custom options with different attribute prefix
@@ -184,8 +188,8 @@ class XmlFileInputTest {
 
             String toon = Toon.fromXml(xmlStream, options);
 
-            System.out.println("\n1. Converted with custom prefix 'attr_':");
-            System.out.println(toon);
+            logger.debug("\n1. Converted with custom prefix 'attr_':");
+            logger.debug(toon);
 
             // Verify custom prefix is used
             assertNotNull(toon);
@@ -196,7 +200,7 @@ class XmlFileInputTest {
 
     @Test
     void testFromXmlFile_NonExistentFile() {
-        System.out.println("\n=== Test fromXmlFile with non-existent file ===");
+        logger.debug("\n=== Test fromXmlFile with non-existent file ===");
 
         File nonExistentFile = new File("/path/to/nonexistent/file.xml");
 
@@ -205,32 +209,32 @@ class XmlFileInputTest {
             Toon.fromXml(nonExistentFile);
         });
 
-        System.out.println("✓ Correctly throws IOException for non-existent file");
+        logger.debug("Correctly throws IOException for non-existent file");
     }
 
     @Test
     void testRoundTrip_FileToToonToXml() throws Exception {
-        System.out.println("\n=== Test Round Trip: File → TOON → XML ===");
+        logger.debug("\n=== Test Round Trip: File → TOON → XML ===");
 
         // Use a simpler XML file for round trip
         File originalFile = getResourceFile("xml/sample-catalog.xml");
 
-        System.out.println("\n1. Original XML file:");
+        logger.debug("\n1. Original XML file:");
         String originalXml = Files.readString(originalFile.toPath());
-        System.out.println(originalXml.substring(0, Math.min(300, originalXml.length())) + "...");
+        logger.debug("{}...", originalXml.substring(0, Math.min(300, originalXml.length())));
 
         // XML File → TOON (without attributes to get tabular format)
         XmlToToonOptions xmlOptions = XmlToToonOptions.builder()
             .includeAttributes(false)
             .build();
         String toon = Toon.fromXml(originalFile, xmlOptions);
-        System.out.println("\n2. Converted to TOON:");
-        System.out.println(toon.substring(0, Math.min(400, toon.length())) + "...");
+        logger.debug("\n2. Converted to TOON:");
+        logger.debug("{}...", toon.substring(0, Math.min(400, toon.length())));
 
         // TOON → XML
         String resultXml = Toon.toXml(toon);
-        System.out.println("\n3. Converted back to XML:");
-        System.out.println(resultXml.substring(0, Math.min(300, resultXml.length())) + "...");
+        logger.debug("\n3. Converted back to XML:");
+        logger.debug("{}...", resultXml.substring(0, Math.min(300, resultXml.length())));
 
         // Verify essential content is preserved
         assertNotNull(resultXml);
@@ -239,12 +243,12 @@ class XmlFileInputTest {
         assertTrue(resultXml.contains("The Great Gatsby"));
         assertTrue(resultXml.contains("George Orwell"));
 
-        System.out.println("\n✓ Round trip successful - data preserved!");
+        logger.debug("\nRound trip successful - data preserved!");
     }
 
     @Test
     void testCompareFileVsStream() throws Exception {
-        System.out.println("\n=== Test: Compare File vs Stream results ===");
+        logger.debug("\n=== Test: Compare File vs Stream results ===");
 
         // Load same XML using File
         File xmlFile = getResourceFile("xml/sample-catalog.xml");
@@ -254,17 +258,17 @@ class XmlFileInputTest {
         try (InputStream xmlStream = getResourceStream("xml/sample-catalog.xml")) {
             String toonFromStream = Toon.fromXml(xmlStream);
 
-            System.out.println("\n1. TOON from File:");
-            System.out.println(toonFromFile);
+            logger.debug("\n1. TOON from File:");
+            logger.debug(toonFromFile);
 
-            System.out.println("\n2. TOON from Stream:");
-            System.out.println(toonFromStream);
+            logger.debug("\n2. TOON from Stream:");
+            logger.debug(toonFromStream);
 
             // Both should produce identical output
             assertEquals(toonFromFile, toonFromStream,
                 "File and Stream conversion should produce identical results");
 
-            System.out.println("\n✓ File and Stream methods produce identical results!");
+            logger.debug("\nFile and Stream methods produce identical results!");
         }
     }
 }

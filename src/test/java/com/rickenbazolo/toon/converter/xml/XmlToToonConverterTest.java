@@ -3,6 +3,8 @@ package com.rickenbazolo.toon.converter.xml;
 import com.rickenbazolo.toon.Toon;
 import com.rickenbazolo.toon.exception.XmlParseException;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for XmlToToonConverter.
  */
 class XmlToToonConverterTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(XmlToToonConverterTest.class);
 
     @Test
     void testSimpleXmlToToon() throws XmlParseException {
@@ -21,8 +25,8 @@ class XmlToToonConverterTest {
         assertTrue(toon.contains("id"));
         assertTrue(toon.contains("name"));
         assertTrue(toon.contains("email"));
-        System.out.println("Simple XML to TOON:");
-        System.out.println(toon);
+        logger.debug("Simple XML to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -36,8 +40,8 @@ class XmlToToonConverterTest {
         assertNotNull(toon);
         assertTrue(toon.contains("product"));
         assertTrue(toon.contains("@id") || toon.contains("id"));
-        System.out.println("\nXML with Attributes to TOON:");
-        System.out.println(toon);
+        logger.debug("\nXML with Attributes to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -51,8 +55,8 @@ class XmlToToonConverterTest {
         assertNotNull(toon);
         assertTrue(toon.contains("catalog"));
         assertTrue(toon.contains("book"));
-        System.out.println("\nXML with Repeated Elements to TOON:");
-        System.out.println(toon);
+        logger.debug("\nXML with Repeated Elements to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -67,8 +71,8 @@ class XmlToToonConverterTest {
 
         assertNotNull(toon);
         assertFalse(toon.contains("@"));
-        System.out.println("\nXML without Attributes to TOON:");
-        System.out.println(toon);
+        logger.debug("\nXML without Attributes to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -83,8 +87,8 @@ class XmlToToonConverterTest {
 
         assertNotNull(toon);
         assertTrue(toon.contains("_attr_id") || toon.contains("id"));
-        System.out.println("\nXML with Custom Prefix to TOON:");
-        System.out.println(toon);
+        logger.debug("\nXML with Custom Prefix to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -94,8 +98,8 @@ class XmlToToonConverterTest {
 
         assertNotNull(toon);
         assertTrue(toon.contains("message"));
-        System.out.println("\nXML with Mixed Content to TOON:");
-        System.out.println(toon);
+        logger.debug("\nXML with Mixed Content to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -112,8 +116,8 @@ class XmlToToonConverterTest {
         String toon = Toon.fromXml(xml, options);
 
         assertNotNull(toon);
-        System.out.println("\nXML with Array Detection NEVER to TOON:");
-        System.out.println(toon);
+        logger.debug("\nXML with Array Detection NEVER to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -129,8 +133,8 @@ class XmlToToonConverterTest {
         String toon = Toon.fromXml(xml);
 
         assertNotNull(toon);
-        System.out.println("\nRSS Feed to TOON:");
-        System.out.println(toon);
+        logger.debug("\nRSS Feed to TOON:");
+        logger.debug(toon);
     }
 
     @Test
@@ -148,7 +152,7 @@ class XmlToToonConverterTest {
         String toon = Toon.fromXml(xml);
 
         assertNotNull(toon);
-        System.out.println("\nEmpty XML to TOON:");
-        System.out.println(toon);
+        logger.debug("\nEmpty XML to TOON:");
+        logger.debug(toon);
     }
 }

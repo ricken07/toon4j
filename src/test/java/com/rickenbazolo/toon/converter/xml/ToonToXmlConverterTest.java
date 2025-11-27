@@ -3,6 +3,8 @@ package com.rickenbazolo.toon.converter.xml;
 import com.rickenbazolo.toon.Toon;
 import com.rickenbazolo.toon.exception.XmlException;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for ToonToXmlConverter.
  */
 class ToonToXmlConverterTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(ToonToXmlConverterTest.class);
 
     @Test
     void testSimpleToonToXml() throws XmlException {
@@ -28,8 +32,8 @@ class ToonToXmlConverterTest {
         assertTrue(xml.contains("<name>Alice</name>"));
         assertTrue(xml.contains("<email>alice@example.com</email>"));
         assertTrue(xml.contains("</user>"));
-        System.out.println("Simple TOON to XML:");
-        System.out.println(xml);
+        logger.debug("Simple TOON to XML:");
+        logger.debug(xml);
     }
 
     @Test
@@ -49,8 +53,8 @@ class ToonToXmlConverterTest {
         assertTrue(xml.contains("id=\"P001\""));
         assertTrue(xml.contains("category=\"electronics\""));
         assertTrue(xml.contains("<name>Laptop</name>"));
-        System.out.println("\nTOON with Attributes to XML:");
-        System.out.println(xml);
+        logger.debug("\nTOON with Attributes to XML:");
+        logger.debug(xml);
     }
 
     @Test
@@ -70,8 +74,8 @@ class ToonToXmlConverterTest {
         assertTrue(xml.contains("<id>1</id>"));
         assertTrue(xml.contains("<title>The Great Gatsby</title>"));
         assertTrue(xml.contains("<year>1925</year>"));
-        System.out.println("\nTOON with Array to XML:");
-        System.out.println(xml);
+        logger.debug("\nTOON with Array to XML:");
+        logger.debug(xml);
     }
 
     @Test
@@ -88,8 +92,8 @@ class ToonToXmlConverterTest {
         assertTrue(xml.contains("<price"));
         assertTrue(xml.contains("currency=\"USD\""));
         assertTrue(xml.contains("999.99"));
-        System.out.println("\nTOON with Text Content to XML:");
-        System.out.println(xml);
+        logger.debug("\nTOON with Text Content to XML:");
+        logger.debug(xml);
     }
 
     @Test
@@ -108,8 +112,8 @@ class ToonToXmlConverterTest {
         assertNotNull(xml);
         assertFalse(xml.contains("<?xml"));
         assertTrue(xml.contains("<user>"));
-        System.out.println("\nTOON to XML without Declaration:");
-        System.out.println(xml);
+        logger.debug("\nTOON to XML without Declaration:");
+        logger.debug(xml);
     }
 
     @Test
@@ -129,8 +133,8 @@ class ToonToXmlConverterTest {
 
         assertNotNull(xml);
         assertFalse(xml.contains("\n  "));  // No indentation
-        System.out.println("\nTOON to XML Not Pretty Print:");
-        System.out.println(xml);
+        logger.debug("\nTOON to XML Not Pretty Print:");
+        logger.debug(xml);
     }
 
     @Test
@@ -149,8 +153,8 @@ class ToonToXmlConverterTest {
         assertNotNull(xml);
         assertTrue(xml.contains("<person>"));
         assertTrue(xml.contains("</person>"));
-        System.out.println("\nTOON to XML with Custom Root Name:");
-        System.out.println(xml);
+        logger.debug("\nTOON to XML with Custom Root Name:");
+        logger.debug(xml);
     }
 
     @Test
@@ -159,15 +163,15 @@ class ToonToXmlConverterTest {
 
         // XML -> TOON
         String toon = Toon.fromXml(originalXml);
-        System.out.println("\nRound Trip - Original XML:");
-        System.out.println(originalXml);
-        System.out.println("\nRound Trip - TOON:");
-        System.out.println(toon);
+        logger.debug("\nRound Trip - Original XML:");
+        logger.debug(originalXml);
+        logger.debug("\nRound Trip - TOON:");
+        logger.debug(toon);
 
         // TOON -> XML
         String resultXml = Toon.toXml(toon);
-        System.out.println("\nRound Trip - Result XML:");
-        System.out.println(resultXml);
+        logger.debug("\nRound Trip - Result XML:");
+        logger.debug(resultXml);
 
         assertNotNull(resultXml);
         assertTrue(resultXml.contains("<user>"));
@@ -195,8 +199,8 @@ class ToonToXmlConverterTest {
         assertTrue(xml.contains("<location>"));
         assertTrue(xml.contains("<city>San Francisco</city>"));
         assertTrue(xml.contains("<employees>"));
-        System.out.println("\nComplex Nested Structure TOON to XML:");
-        System.out.println(xml);
+        logger.debug("\nComplex Nested Structure TOON to XML:");
+        logger.debug(xml);
     }
 
     @Test
@@ -216,7 +220,7 @@ class ToonToXmlConverterTest {
         assertNotNull(xml);
         assertTrue(xml.contains("id=\"P001\""));
         assertTrue(xml.contains("<name>Laptop</name>"));
-        System.out.println("\nTOON to XML with Custom Attribute Prefix:");
-        System.out.println(xml);
+        logger.debug("\nTOON to XML with Custom Attribute Prefix:");
+        logger.debug(xml);
     }
 }

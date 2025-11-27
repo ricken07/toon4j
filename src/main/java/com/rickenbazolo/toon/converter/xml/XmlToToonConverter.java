@@ -111,10 +111,7 @@ public class XmlToToonConverter {
             String name = entry.getKey();
             List<Element> elements = entry.getValue();
 
-            boolean shouldDetectArray = xmlOptions.arrayDetection() == XmlToToonOptions.ArrayDetection.AUTO && elements.size() > 1
-                    || xmlOptions.arrayDetection() == XmlToToonOptions.ArrayDetection.ALWAYS && elements.size() >= 1;
-
-            if (shouldDetectArray && elements.size() > 1) {
+            if (shouldConvertToArray(elements)) {
                 // Array detected
                 ArrayNode array = jsonMapper.createArrayNode();
                 for (Element child : elements) {
@@ -139,6 +136,17 @@ public class XmlToToonConverter {
         }
 
         return node;
+    }
+
+    /**
+     * Determines if a list of elements should be converted to an array.
+     *
+     * @param elements the list of elements to check
+     * @return true if the elements should be converted to an array
+     */
+    private boolean shouldConvertToArray(List<Element> elements) {
+        return (xmlOptions.arrayDetection() == XmlToToonOptions.ArrayDetection.AUTO && elements.size() > 1)
+                || (xmlOptions.arrayDetection() == XmlToToonOptions.ArrayDetection.ALWAYS && !elements.isEmpty());
     }
 
     /**
@@ -250,6 +258,15 @@ public class XmlToToonConverter {
         factory.setIgnoringComments(true);
         factory.setCoalescing(true);
         factory.setIgnoringElementContentWhitespace(true);
+
+        // Disable external entity processing to prevent XXE attacks
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        factory.setXIncludeAware(false);
+        factory.setExpandEntityReferences(false);
+
         return factory.newDocumentBuilder();
     }
 }

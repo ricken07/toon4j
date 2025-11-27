@@ -2,6 +2,8 @@ package com.rickenbazolo.toon.converter.xml;
 
 import com.rickenbazolo.toon.Toon;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Bidirectional test demonstrating XML ↔ TOON conversion.
  */
 class BidirectionalXmlToonTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(BidirectionalXmlToonTest.class);
 
     @Test
     void testBidirectionalConversionSimple() throws Exception {
@@ -22,19 +26,19 @@ class BidirectionalXmlToonTest {
                 </user>
                 """;
 
-        System.out.println("=== Simple Bidirectional Conversion ===");
-        System.out.println("\n1. Original XML:");
-        System.out.println(originalXml);
+        logger.debug("=== Simple Bidirectional Conversion ===");
+        logger.debug("\n1. Original XML:");
+        logger.debug(originalXml);
 
         // XML → TOON
         String toon = Toon.fromXml(originalXml);
-        System.out.println("\n2. Converted to TOON:");
-        System.out.println(toon);
+        logger.debug("\n2. Converted to TOON:");
+        logger.debug(toon);
 
         // TOON → XML
         String resultXml = Toon.toXml(toon);
-        System.out.println("\n3. Converted back to XML:");
-        System.out.println(resultXml);
+        logger.debug("\n3. Converted back to XML:");
+        logger.debug(resultXml);
 
         // Verify content
         assertTrue(resultXml.contains("<user>"));
@@ -62,26 +66,26 @@ class BidirectionalXmlToonTest {
                 </catalog>
                 """;
 
-        System.out.println("\n=== Bidirectional Conversion with Attributes ===");
-        System.out.println("\n1. Original XML:");
-        System.out.println(originalXml);
+        logger.debug("\n=== Bidirectional Conversion with Attributes ===");
+        logger.debug("\n1. Original XML:");
+        logger.debug(originalXml);
 
         // XML → TOON
         String toon = Toon.fromXml(originalXml);
-        System.out.println("\n2. Converted to TOON:");
-        System.out.println(toon);
+        logger.debug("\n2. Converted to TOON:");
+        logger.debug(toon);
 
         // Calculate token savings
         int xmlLength = originalXml.length();
         int toonLength = toon.length();
         double savings = ((xmlLength - toonLength) * 100.0) / xmlLength;
-        System.out.printf("\n   Token Savings: %d chars → %d chars (%.1f%% reduction)\n",
-                         xmlLength, toonLength, savings);
+        logger.debug("\n   Token Savings: {} chars → {} chars ({} reduction)",
+                         xmlLength, toonLength, String.format("%.1f%%", savings));
 
         // TOON → XML
         String resultXml = Toon.toXml(toon);
-        System.out.println("\n3. Converted back to XML:");
-        System.out.println(resultXml);
+        logger.debug("\n3. Converted back to XML:");
+        logger.debug(resultXml);
 
         // Verify content
         assertTrue(resultXml.contains("version=\"2.0\""));
@@ -120,27 +124,27 @@ class BidirectionalXmlToonTest {
                 </rss>
                 """;
 
-        System.out.println("\n=== RSS Feed Bidirectional Conversion ===");
-        System.out.println("\n1. Original RSS XML:");
-        System.out.println(rssXml);
+        logger.debug("\n=== RSS Feed Bidirectional Conversion ===");
+        logger.debug("\n1. Original RSS XML:");
+        logger.debug(rssXml);
 
         // XML → TOON
         String toon = Toon.fromXml(rssXml);
-        System.out.println("\n2. Converted to TOON:");
-        System.out.println(toon);
+        logger.debug("\n2. Converted to TOON:");
+        logger.debug(toon);
 
         // Calculate significant token savings
         int xmlLength = rssXml.length();
         int toonLength = toon.length();
         double savings = ((xmlLength - toonLength) * 100.0) / xmlLength;
-        System.out.printf("\n   ✨ Token Savings: %d chars → %d chars (%.1f%% reduction)\n",
-                         xmlLength, toonLength, savings);
-        System.out.println("   💡 Perfect for LLM context optimization!");
+        logger.debug("\n   Token Savings: {} chars -> {} chars ({})",
+                         xmlLength, toonLength, String.format("%.1f%% reduction", savings));
+        logger.debug("   Perfect for LLM context optimization!");
 
         // TOON → XML
         String resultXml = Toon.toXml(toon);
-        System.out.println("\n3. Converted back to XML:");
-        System.out.println(resultXml);
+        logger.debug("\n3. Converted back to XML:");
+        logger.debug(resultXml);
 
         // Verify RSS structure preserved
         assertTrue(resultXml.contains("<rss"));
@@ -160,9 +164,9 @@ class BidirectionalXmlToonTest {
                 </product>
                 """;
 
-        System.out.println("\n=== Custom Options Round Trip ===");
-        System.out.println("\n1. Original XML:");
-        System.out.println(originalXml);
+        logger.debug("\n=== Custom Options Round Trip ===");
+        logger.debug("\n1. Original XML:");
+        logger.debug(originalXml);
 
         // XML → TOON with custom options
         XmlToToonOptions xmlToToonOpts = XmlToToonOptions.builder()
@@ -171,8 +175,8 @@ class BidirectionalXmlToonTest {
             .build();
 
         String toon = Toon.fromXml(originalXml, xmlToToonOpts);
-        System.out.println("\n2. TOON (with custom attribute prefix '_'):");
-        System.out.println(toon);
+        logger.debug("\n2. TOON (with custom attribute prefix '_'):");
+        logger.debug(toon);
 
         // TOON → XML with matching custom options
         ToonToXmlOptions toonToXmlOpts = ToonToXmlOptions.builder()
@@ -182,8 +186,8 @@ class BidirectionalXmlToonTest {
             .build();
 
         String resultXml = Toon.toXml(toon, toonToXmlOpts);
-        System.out.println("\n3. Result XML:");
-        System.out.println(resultXml);
+        logger.debug("\n3. Result XML:");
+        logger.debug(resultXml);
 
         // Verify attributes converted correctly
         assertTrue(resultXml.contains("id=\"P001\""));
@@ -217,17 +221,17 @@ class BidirectionalXmlToonTest {
                 </company>
                 """;
 
-        System.out.println("\n=== Nested Structure Preservation ===");
-        System.out.println("\n1. Original XML (nested structure):");
-        System.out.println(nestedXml);
+        logger.debug("\n=== Nested Structure Preservation ===");
+        logger.debug("\n1. Original XML (nested structure):");
+        logger.debug(nestedXml);
 
         String toon = Toon.fromXml(nestedXml);
-        System.out.println("\n2. TOON representation:");
-        System.out.println(toon);
+        logger.debug("\n2. TOON representation:");
+        logger.debug(toon);
 
         String resultXml = Toon.toXml(toon);
-        System.out.println("\n3. Reconstructed XML:");
-        System.out.println(resultXml);
+        logger.debug("\n3. Reconstructed XML:");
+        logger.debug(resultXml);
 
         // Verify nested structure
         assertTrue(resultXml.contains("<company>"));

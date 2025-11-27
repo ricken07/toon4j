@@ -35,3 +35,11 @@ hs_err_pid*
 # OS
 .DS_Store
 Thumbs.db
+
+# SonarCloud
+.sonar/
+.scannerwork/
+
+# JaCoCo
+jacoco.exec
+*.exec
