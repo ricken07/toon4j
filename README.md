@@ -1,10 +1,8 @@
-# TOON Java - Token-Oriented Object Notation
+# Toon4j - Token-Oriented Object Notation 4 Java
 
+[![Toon4j Tests](https://github.com/rickenbazolo/toon4j/actions/workflows/ci.yml/badge.svg)](https://github.com/rickenbazolo/toon4j/actions/workflows/ci.yml)
 [![Java 17+](https://img.shields.io/badge/Java-17%2B-blue.svg)](https://openjdk.org/projects/jdk/17/)
 [![Maven](https://img.shields.io/badge/Maven-3.8%2B-red.svg)](https://maven.apache.org/)
-[![TOON Spec](https://img.shields.io/badge/TOON%20Spec-v1.4-orange.svg)](https://github.com/toon-format/spec/releases/tag/v1.4.0)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4j)
 
 [![serialization](https://img.shields.io/badge/tag-serialization-green)](https://github.com/topics/serialization)
 [![tokenization](https://img.shields.io/badge/tag-tokenization-green)](https://github.com/topics/tokenization)
