@@ -1,4 +1,4 @@
-name: Release toon4j
+name: Release Toon4j
 
 on:
   workflow_dispatch:
