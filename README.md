@@ -4,12 +4,7 @@
 [![Maven](https://img.shields.io/badge/Maven-3.8%2B-red.svg)](https://maven.apache.org/)
 [![TOON Spec](https://img.shields.io/badge/TOON%20Spec-v1.4-orange.svg)](https://github.com/toon-format/spec/releases/tag/v1.4.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=bugs)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4jj)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rickenbazolo_Toon4jj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rickenbazolo_Toon4j)
 
 [![serialization](https://img.shields.io/badge/tag-serialization-green)](https://github.com/topics/serialization)
 [![tokenization](https://img.shields.io/badge/tag-tokenization-green)](https://github.com/topics/tokenization)
