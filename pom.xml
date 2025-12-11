@@ -7,7 +7,7 @@
 
     <groupId>com.rickenbazolo</groupId>
     <artifactId>toon4j</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>toon4j</name>
